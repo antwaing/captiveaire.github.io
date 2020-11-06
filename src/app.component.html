@@ -1,0 +1,37 @@
+<div class="toolbar" role="banner">
+  <span>CaptiveAire Credit Card Form</span>
+</div>
+
+<div class="content" role="main">
+  <div class="container">
+    <form [formGroup]="ccForm" (ngSubmit)="onSubmit()">
+    <div>
+      <mat-form-field appearance="outline" class="standard-field">
+        <mat-label>Credit Card Number</mat-label>
+        <input id="ccard" matInput placeholder="" formControlName="ccard" type="tel" required  ccNumber #ccNumber="ccNumber" />
+        <mat-hint><span class="scheme">{{ccNumber.resolvedScheme$ | async}}</span></mat-hint>
+        <mat-error *ngIf="ccard.errors">{{ cCardError() }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="small-field">
+        <mat-label>CVV2</mat-label>
+        <input matInput placeholder="****" formControlName="ccv2" type="number" />
+        <mat-hint></mat-hint>
+        <mat-error *ngIf="ccv2.errors">{{ ccvError() }}</mat-error>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline" class="standard-field">
+      <mat-label>Month</mat-label>
+      <input matInput placeholder="**"formControlName="monthYear" type="month" />
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="monthYear.invalid">{{ monthYearError() }}</mat-error>
+    </mat-form-field>
+ 
+  <div>
+    <button mat-raised-button [disabled]="!ccForm.valid">Basic</button>
+  </div>
+</form>
+</div>
+</div>
+
+<router-outlet></router-outlet>
+
